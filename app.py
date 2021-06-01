@@ -24,18 +24,19 @@ app.layout = html.Div([
     html.Div(["g (S/m): ",
               dcc.Input(id='cond-in', value='13.13e-12', type='text'),]),
     html.Br(),
-    html.Div(id='res-out'),
+    html.Div(id='Zc'),
 
     dcc.Graph(id='graph'),
 ])
 
 
 @app.callback(
-    Output(component_id='res-out', component_property='children'),
+    Output(component_id='Zc', component_property='children'),
     Input(component_id='res-in', component_property='value')
 )
 def update_output_div(input_value):
-    return 'r (Ohm/m): {}'.format(input_value)
+    qui usare la funzione transmission.xy_to_kZc()
+    return 'Zc (Ohm): {}\n'.format(input_value)
 
 @app.callback(
     Output('graph', 'figure'),

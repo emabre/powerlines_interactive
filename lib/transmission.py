@@ -19,3 +19,24 @@ def hybrid(Zc, k, d):
     D = A  # Because of symmetry
     
     return A, B, C, D
+
+def xy_to_kZc(r, l, c, g, omega):
+    '''
+    Compute the parameters k and Zc of a powerline,
+    give the r, l, c, g parameters and the power frequency
+    '''
+
+    x = r + 1j * omega * l
+    y = g + 1j * omega * c
+
+    Zc = np.sqrt(x*y)
+    k = np.sqrt(x/y)
+    
+    # np.sqrt(c) returns the only solution to x**2 = c that has positive real part.
+    # But I add here a check just in case...
+    if np.real(Zc) < 0:
+        raise ValueError('real part of Zc appears to be negative, fix this!')
+    if np.real(k) < 0:
+        raise ValueError('real part of k appears to be negative, fix this!')
+    
+    return k, Zc
