@@ -20,14 +20,14 @@ def hybrid(Zc, k, d):
     
     return A, B, C, D
 
-def xy_to_kZc(r, l, c, g, omega):
+def xy_to_kZc(r, l, g, c, freq):
     '''
     Compute the parameters k and Zc of a powerline,
     give the r, l, c, g parameters and the power frequency
     '''
 
-    x = r + 1j * omega * l
-    y = g + 1j * omega * c
+    x = r + 1j * freq * l
+    y = g + 1j * freq * c
 
     Zc = np.sqrt(x*y)
     k = np.sqrt(x/y)

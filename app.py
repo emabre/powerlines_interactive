@@ -25,6 +25,7 @@ app.layout = html.Div([
               dcc.Input(id='cond-in', value='13.13e-12', type='text'),]),
     html.Br(),
     html.Div(id='Zc'),
+    html.Div(id='k'),
 
     dcc.Graph(id='graph'),
 ])
@@ -32,11 +33,15 @@ app.layout = html.Div([
 
 @app.callback(
     Output(component_id='Zc', component_property='children'),
-    Input(component_id='res-in', component_property='value')
+    Output(component_id='k', component_property='children'),
+    Input(component_id='res-in', component_property='value'),
+    Input(component_id='ind-in', component_property='value'),
+    Input(component_id='cond-in', component_property='value'),
+    Input(component_id='cap-in', component_property='value'),
 )
-def update_output_div(input_value):
-    qui usare la funzione transmission.xy_to_kZc()
-    return 'Zc (Ohm): {}\n'.format(input_value)
+def update_kZc(res, ind, cond, cap, freq):
+    k, Zc = transmission.xy_to_kZc()
+    return 'Zc (Ohm): {}\n'.format(Zc), 'k (Ohm/m): {}\n'.format(k)
 
 @app.callback(
     Output('graph', 'figure'),
