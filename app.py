@@ -6,6 +6,7 @@ from dash.dependencies import Input, Output
 from lib import plot_powerline as ppl
 from lib import transmission as tr
 
+#%% Settings
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__,
@@ -14,6 +15,7 @@ app = dash.Dash(__name__,
 
 server = app.server
 
+#%% Layout
 app.layout = html.Div([
     html.H2("Some plots"),
     html.Div(["r (Ohm/m): ",
@@ -26,6 +28,8 @@ app.layout = html.Div([
               dcc.Input(id='cond-in', value=13.13e-12, type='number'),]),
     html.Div(["freq-in (Hz): ",
               dcc.Input(id='freq-in', value=50.0, type='number'),]),
+    html.Div(["d (m): ",
+              dcc.Input(id='d-in', value=10000.0, type='number'),]),
     html.Br(),
     html.Div(id='Zc'),
     html.Div(id='k'),
@@ -33,7 +37,7 @@ app.layout = html.Div([
     dcc.Graph(id='graph'),
 ])
 
-
+#%% Callbacks
 @app.callback(
     Output(component_id='k', component_property='children'),
     Output(component_id='Zc', component_property='children'),
@@ -47,13 +51,17 @@ def update_kZc(res, ind, cond, cap, freq):
     k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
     return 'k (Ohm/m): {:.3g}\n'.format(k), 'Zc (Ohm): {:.3g}\n'.format(Zc)
 
-# @app.callback(
-#     Output('graph', 'figure'),
-#     Input('res-in', 'value'))
-# def update_figure(R):
-#     fig = ppl.plot_V_I()
-#     return fig
+@app.callback(
+    Output('graph', 'figure'),
+    Input('Zc', 'children'),
+    Input('k', 'children'),
+    Input('d-in', 'value')
+    )
+def update_figure(Zc, k, d):
+    fig = ppl.plot_V_I(Zc, k, d)
+    return fig
 
 
+#%% Testing
 if __name__ == '__main__':
     app.run_server(debug=True)
