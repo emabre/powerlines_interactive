@@ -40,3 +40,13 @@ def xy_to_kZc(r, l, g, c, freq):
         raise ValueError('real part of k appears to be negative, fix this!')
     
     return k, Zc
+
+if __name__ == '__main__':
+
+    r = 21.0e-6
+    l = 0.8591e-6
+    g = 13e-12
+    c = 13.13e-12
+    freq = 50.0
+
+    k, Zc = xy_to_kZc(r, l, g, c, freq)
