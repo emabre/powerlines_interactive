@@ -2,7 +2,6 @@ import numpy as np
 from lib import transmission as tr
 import plotly.graph_objects as go
 
-
 def plot_V_I(Zc, k, L):
     #%% Units in SI if not otherwise specified
     # L = 1000e3

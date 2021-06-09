@@ -5,6 +5,7 @@ from dash.dependencies import Input, Output
 
 from lib import plot_powerline as ppl
 from lib import transmission as tr
+from lib import utils as ut
 
 #%% Settings
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -31,9 +32,9 @@ app.layout = html.Div([
     html.Div(["d (m): ",
               dcc.Input(id='d-in', value=10000.0, type='number'),]),
     html.Br(),
-    html.Div(id='Zc'),
-    html.Div(id='k'),
-
+    
+    # html.Table([html.Tr([html.Td(['Zc (Ohm):']), html.Td(id='Zc')]),
+    #             html.Tr([html.Td(['k (Ohm/m):']), html.Td(id='k')]),]),
     dcc.Graph(id='graph'),
 ])
 
@@ -49,7 +50,7 @@ app.layout = html.Div([
 )
 def update_kZc(res, ind, cond, cap, freq):
     k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
-    return 'k (Ohm/m): {:.3g}\n'.format(k), 'Zc (Ohm): {:.3g}\n'.format(Zc)
+    return '{:.3g}'.format(k), '{:.3g}'.format(Zc)
 
 @app.callback(
     Output('graph', 'figure'),
@@ -57,8 +58,8 @@ def update_kZc(res, ind, cond, cap, freq):
     Input('k', 'children'),
     Input('d-in', 'value')
     )
-def update_figure(Zc, k, d):
-    fig = ppl.plot_V_I(Zc, k, d)
+def update_figure(Zc_str, k_str, d):
+    fig = ppl.plot_V_I(*ut.to_numbers(Zc_str, k_str), d)
     return fig
 
 
