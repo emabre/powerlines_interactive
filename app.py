@@ -32,8 +32,16 @@ app.layout = html.Div([
     html.Div(["d (m): ",
               dcc.Input(id='d-in', value=100.0, type='number'),]),
     html.Br(),
-    html.Div(['Zc (Ohm):', dcc.Input(id='Zc', value=0, type='number')]),
-    html.Div(['k (1/m):', dcc.Input(id='k', value=0, type='number')]),
+    html.Div(['Zc = ',
+              dcc.Input(id='Re(Zc)', value=11, type='number'),
+              ' + j',
+              dcc.Input(id='Im(Zc)', value=22, type='number'),
+              ' Ohm']),
+    html.Div(['k = ',
+              dcc.Input(id='Re(k)', value=33, type='number'),
+              ' + j',
+              dcc.Input(id='Im(k)', value=44, type='number'),
+              ' 1/m']),
     # html.Table([html.Tr([html.Td(['Zc (Ohm):']), html.Td(id='Zc')]),
     #             html.Tr([html.Td(['k (Ohm/m):']), html.Td(id='k')]),]),
     dcc.Graph(id='graph'),
@@ -41,8 +49,10 @@ app.layout = html.Div([
 
 #%% Callbacks
 @app.callback(
-    Output(component_id='k', component_property='value'),
-    Output(component_id='Zc', component_property='value'),
+    Output(component_id='Re(k)', component_property='value'),
+    Output(component_id='Im(k)', component_property='value'),
+    Output(component_id='Re(Zc)', component_property='value'),
+    Output(component_id='Im(Zc)', component_property='value'),
     Input(component_id='res-in', component_property='value'),
     Input(component_id='ind-in', component_property='value'),
     Input(component_id='cond-in', component_property='value'),
@@ -51,19 +61,22 @@ app.layout = html.Div([
 )
 def update_kZc(res, ind, cond, cap, freq):
     k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
-    return k.imag, Zc.real
+    return k.real, k.imag, Zc.real, Zc.imag
 # def update_kZc(res, ind, cond, cap, freq):
 #     k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
 #     return '{:.3g}'.format(k), '{:.3g}'.format(Zc)
 
 @app.callback(
     Output('graph', 'figure'),
-    Input('Zc', 'value'),
-    Input('k', 'value'),
+    Input('Re(Zc)', 'value'),
+    Input('Im(Zc)', 'value'),
+    Input('Re(k)', 'value'),
+    Input('Im(k)', 'value'),
     Input('d-in', 'value')
     )
-def update_figure(Zc_str, k_str, d):
-    fig = ppl.plot_V_I(*ut.to_numbers(Zc_str, k_str), d)
+def update_figure(Zc_real, Zc_imag, k_real, k_imag, d):
+    fig = ppl.plot_V_I(Zc_real + 1j*Zc_imag,
+                       k_real + 1j*k_imag, d)
     return fig
 
 
