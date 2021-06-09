@@ -13,8 +13,6 @@ def hybrid(Zc, k, d):
 
     kd = k*d
 
-    print(len(d), len(kd), max(kd))
-
     A = np.cosh(kd)
     B = Zc * np.sin(kd)
     C = np.sin(kd) / Zc
@@ -28,11 +26,11 @@ def xy_to_kZc(r, l, g, c, freq):
     give the r, l, c, g parameters and the power frequency
     '''
 
-    x = r + 1j * freq * l
-    y = g + 1j * freq * c
+    x = r + 1j * 2*np.pi*freq * l
+    y = g + 1j * 2*np.pi*freq * c
 
-    Zc = np.sqrt(x*y)
-    k = np.sqrt(x/y)
+    k = np.sqrt(x*y)
+    Zc = np.sqrt(x/y)
     
     # np.sqrt(c) returns the only solution to x**2 = c that has positive real part.
     # But I add here a check just in case...

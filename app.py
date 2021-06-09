@@ -19,31 +19,35 @@ server = app.server
 #%% Layout
 app.layout = html.Div([
     html.H2("Some plots"),
-    html.Div(["r (Ohm/m): ",
-              dcc.Input(id='res-in', value=21.0e-6, type='number'),]),
-    html.Div(["l (H/m): ",
-              dcc.Input(id='ind-in', value=0.8591e-6, type='number'),]),
-    html.Div(["c (F/m): ",
-              dcc.Input(id='cap-in', value=13e-12, type='number'),]),
-    html.Div(["g (S/m): ",
-              dcc.Input(id='cond-in', value=13.13e-12, type='number'),]),
-    html.Div(["freq-in (Hz): ",
-              dcc.Input(id='freq-in', value=50.0, type='number'),]),
-    html.Div(["d (m): ",
-              dcc.Input(id='d-in', value=100.0, type='number'),]),
+    html.Div(["r = ",
+              dcc.Input(id='res-in', value=12.5e-6, type='number'),
+              " Ohm/m"]),
+    html.Div(["l = ",
+              dcc.Input(id='ind-in', value=0.576e-6, type='number'),
+              " H/m"]),
+    html.Div(["c = ",
+              dcc.Input(id='cap-in', value=234e-12, type='number'),
+              " F/m"]),
+    html.Div(["g = ",
+              dcc.Input(id='cond-in', value=51.459e-12, type='number'),
+              " S/m"]),
+    html.Div(["f = ",
+              dcc.Input(id='freq-in', value=50.0, type='number'),
+              " Hz"]),
+    html.Div(["d = ",
+              dcc.Input(id='d-in', value=100.0, type='number'),
+              " m"]),
     html.Br(),
-    html.Div(['Zc = ',
-              dcc.Input(id='Re(Zc)', value=11, type='number'),
-              ' + j',
-              dcc.Input(id='Im(Zc)', value=22, type='number'),
-              ' Ohm']),
     html.Div(['k = ',
               dcc.Input(id='Re(k)', value=33, type='number'),
               ' + j',
               dcc.Input(id='Im(k)', value=44, type='number'),
               ' 1/m']),
-    # html.Table([html.Tr([html.Td(['Zc (Ohm):']), html.Td(id='Zc')]),
-    #             html.Tr([html.Td(['k (Ohm/m):']), html.Td(id='k')]),]),
+    html.Div(['Zc = ',
+              dcc.Input(id='Re(Zc)', value=11, type='number'),
+              ' + j',
+              dcc.Input(id='Im(Zc)', value=22, type='number'),
+              ' Ohm']),
     dcc.Graph(id='graph'),
 ])
 
@@ -62,9 +66,6 @@ app.layout = html.Div([
 def update_kZc(res, ind, cond, cap, freq):
     k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
     return k.real, k.imag, Zc.real, Zc.imag
-# def update_kZc(res, ind, cond, cap, freq):
-#     k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
-#     return '{:.3g}'.format(k), '{:.3g}'.format(Zc)
 
 @app.callback(
     Output('graph', 'figure'),
