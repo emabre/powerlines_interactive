@@ -13,6 +13,8 @@ def hybrid(Zc, k, d):
 
     kd = k*d
 
+    print(len(d), len(kd), max(kd))
+
     A = np.cosh(kd)
     B = Zc * np.sin(kd)
     C = np.sin(kd) / Zc

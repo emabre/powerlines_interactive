@@ -30,9 +30,10 @@ app.layout = html.Div([
     html.Div(["freq-in (Hz): ",
               dcc.Input(id='freq-in', value=50.0, type='number'),]),
     html.Div(["d (m): ",
-              dcc.Input(id='d-in', value=10000.0, type='number'),]),
+              dcc.Input(id='d-in', value=100.0, type='number'),]),
     html.Br(),
-    
+    html.Div(['Zc (Ohm):', dcc.Input(id='Zc', value=0, type='number')]),
+    html.Div(['k (1/m):', dcc.Input(id='k', value=0, type='number')]),
     # html.Table([html.Tr([html.Td(['Zc (Ohm):']), html.Td(id='Zc')]),
     #             html.Tr([html.Td(['k (Ohm/m):']), html.Td(id='k')]),]),
     dcc.Graph(id='graph'),
@@ -40,8 +41,8 @@ app.layout = html.Div([
 
 #%% Callbacks
 @app.callback(
-    Output(component_id='k', component_property='children'),
-    Output(component_id='Zc', component_property='children'),
+    Output(component_id='k', component_property='value'),
+    Output(component_id='Zc', component_property='value'),
     Input(component_id='res-in', component_property='value'),
     Input(component_id='ind-in', component_property='value'),
     Input(component_id='cond-in', component_property='value'),
@@ -50,12 +51,15 @@ app.layout = html.Div([
 )
 def update_kZc(res, ind, cond, cap, freq):
     k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
-    return '{:.3g}'.format(k), '{:.3g}'.format(Zc)
+    return k.imag, Zc.real
+# def update_kZc(res, ind, cond, cap, freq):
+#     k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
+#     return '{:.3g}'.format(k), '{:.3g}'.format(Zc)
 
 @app.callback(
     Output('graph', 'figure'),
-    Input('Zc', 'children'),
-    Input('k', 'children'),
+    Input('Zc', 'value'),
+    Input('k', 'value'),
     Input('d-in', 'value')
     )
 def update_figure(Zc_str, k_str, d):

@@ -5,7 +5,8 @@ def to_numbers(*args):
     '''
 
     for a in args:
-        print(a.strip())
+        if isinstance(a, str):
+            print(a.strip())
 
     t = tuple(map(lambda a: complex(a.strip()) if isinstance(a, str) else a,
                   args)
