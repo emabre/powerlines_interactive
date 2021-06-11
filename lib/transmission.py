@@ -41,6 +41,12 @@ def xy_to_kZc(r, l, g, c, freq):
     
     return k, Zc
 
+def kZc_to_xy(Zc, k):
+    '''
+    '''
+    
+    return res, ind, cond, cap
+
 if __name__ == '__main__':
 
     r = 21.0e-6
