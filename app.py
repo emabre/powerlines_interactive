@@ -68,13 +68,13 @@ app.layout = html.Div([
     Input('cond-in', 'value'),
     Input('cap-in', 'value'),
     Input('freq-in', 'value'),
-    Input('Re(Zc)', 'value'),
-    Input('Im(Zc)', 'value'),
     Input('Re(k)', 'value'),
     Input('Im(k)', 'value'),
+    Input('Re(Zc)', 'value'),
+    Input('Im(Zc)', 'value'),
 )
 def update_kZc_xy(res, ind, cond, cap, freq,
-                  Zc_real, Zc_imag, k_real, k_imag):
+                  k_real, k_imag, Zc_real, Zc_imag):
     ctx = dash.callback_context
     trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
@@ -82,18 +82,20 @@ def update_kZc_xy(res, ind, cond, cap, freq,
 
     if trigger_id in xyf:
         k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
-        
-        res_out, ind_out, con_out, cap_out, freq_out = res, ind, cond, cap, freq
         k_real_out, k_imag_out = k.real, k.imag
         Zc_real_out, Zc_imag_out,  = Zc.real, Zc.imag
+
+        res_out, ind_out, cond_out, cap_out, freq_out = res, ind, cond, cap, freq
+
     else:
-        res_out, ind_out, cond_out, cap_out = tr.kZc_to_xy(Zc_real + 1j*Zc_imag,
-                                                           k_real + 1j*k_imag)
+        res_out, ind_out, cond_out, cap_out = tr.kZc_to_xy(k_real + 1j*k_imag, 
+                                                           Zc_real + 1j*Zc_imag)
         k_real_out, k_imag_out = k_real, k_imag
+
         Zc_real_out, Zc_imag_out = Zc_real, Zc_imag
     
-    return (res_out, ind_out, con_out, cap_out, freq_out,
-            Zc_real_out, Zc_imag_out, k_real_out, k_imag_out)
+    return (res_out, ind_out, cond_out, cap_out, freq_out,
+            k_real_out, k_imag_out, Zc_real_out, Zc_imag_out,)
 
 # @app.callback(
 #     Output(component_id='Re(k)', component_property='value'),
@@ -112,15 +114,16 @@ def update_kZc_xy(res, ind, cond, cap, freq,
 
 @app.callback(
     Output('graph', 'figure'),
-    Input('Re(Zc)', 'value'),
-    Input('Im(Zc)', 'value'),
     Input('Re(k)', 'value'),
     Input('Im(k)', 'value'),
+    Input('Re(Zc)', 'value'),
+    Input('Im(Zc)', 'value'),
     Input('d-in', 'value')
     )
-def update_figure(Zc_real, Zc_imag, k_real, k_imag, d):
-    fig = ppl.plot_V_I(Zc_real + 1j*Zc_imag,
-                       k_real + 1j*k_imag, d)
+def update_figure(k_real, k_imag, Zc_real, Zc_imag, d):
+    fig = ppl.plot_V_I(k_real + 1j*k_imag,
+                       Zc_real + 1j*Zc_imag,
+                       d)
     return fig
 
 

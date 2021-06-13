@@ -1,6 +1,6 @@
 import numpy as np
 
-def hybrid(Zc, k, d):
+def hybrid(k, Zc, d):
     '''
     The hybrid/transmission matrix parameters of a well symmetrized
     line, at the positive sequence.
@@ -41,10 +41,26 @@ def xy_to_kZc(r, l, g, c, freq):
     
     return k, Zc
 
-def kZc_to_xy(Zc, k):
+def kZc_to_xy(k, Zc):
     '''
+    Provides the r, l, g, c of a powerline given the Zc and k parameters
     '''
     
+    x = np.sqrt(k*Zc)
+    y = np.sqrt(k/Zc)
+
+    # np.sqrt(c) returns the only solution to x**2 = c that has positive real part.
+    # But I add here a check just in case...
+    if np.real(x) < 0 or np.imag(x) < 0:
+        raise ValueError('real or imaginary part of x appears to be negative, fix this!')
+    if np.real(y) < 0 or np.imag(y) < 0:
+        raise ValueError('real or imaginary part of y appears to be negative, fix this!')
+
+    res = x.real
+    ind = x.imag
+    cond = y.real
+    cap = y.imag
+
     return res, ind, cond, cap
 
 if __name__ == '__main__':
