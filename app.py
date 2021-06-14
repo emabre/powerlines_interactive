@@ -20,54 +20,54 @@ server = app.server
 app.layout = html.Div([
     html.H2("Some plots"),
     html.Div(["r = ",
-              dcc.Input(id='res-in', value=12.5e-6, type='number'),
+              dcc.Input(id='res', value=12.5e-6, type='number'),
               " Ohm/m"]),
     html.Div(["l = ",
-              dcc.Input(id='ind-in', value=0.576e-6, type='number'),
+              dcc.Input(id='ind', value=0.576e-6, type='number'),
               " H/m"]),
     html.Div(["c = ",
-              dcc.Input(id='cap-in', value=234e-12, type='number'),
+              dcc.Input(id='cap', value=234e-12, type='number'),
               " F/m"]),
     html.Div(["g = ",
-              dcc.Input(id='cond-in', value=51.459e-12, type='number'),
+              dcc.Input(id='cond', value=51.459e-12, type='number'),
               " S/m"]),
     html.Div(["f = ",
-              dcc.Input(id='freq-in', value=50.0, type='number'),
+              dcc.Input(id='freq', value=50.0, type='number'),
               " Hz"]),
     html.Div(["d = ",
-              dcc.Input(id='d-in', value=100.0, type='number'),
+              dcc.Input(id='d', value=100.0, type='number'),
               " m"]),
     html.Br(),
     html.Div(['k = ',
-              dcc.Input(id='Re(k)', value=33, type='number'),
+              dcc.Input(id='Re(k)', value=0.12718e-6, type='number'),
               ' + j',
-              dcc.Input(id='Im(k)', value=44, type='number'),
+              dcc.Input(id='Im(k)', value=3.6494e-6, type='number'),
               ' 1/m']),
     html.Div(['Zc = ',
-              dcc.Input(id='Re(Zc)', value=11, type='number'),
+              dcc.Input(id='Re(Zc)', value=49.644, type='number'),
               ' + j',
-              dcc.Input(id='Im(Zc)', value=22, type='number'),
+              dcc.Input(id='Im(Zc)', value=-1.695, type='number'),
               ' Ohm']),
     dcc.Graph(id='graph'),
 ])
 
 #%% Callbacks
 @app.callback(
-    Output('res-in', 'value'),
-    Output('ind-in', 'value'),
-    Output('cond-in', 'value'),
-    Output('cap-in', 'value'),
-    Output('freq-in', 'value'),
+    Output('res', 'value'),
+    Output('ind', 'value'),
+    Output('cond', 'value'),
+    Output('cap', 'value'),
+    Output('freq', 'value'),
     Output('Re(k)', 'value'),
     Output('Im(k)', 'value'),
     Output('Re(Zc)', 'value'),
     Output('Im(Zc)', 'value'),
 
-    Input('res-in', 'value'),
-    Input('ind-in', 'value'),
-    Input('cond-in', 'value'),
-    Input('cap-in', 'value'),
-    Input('freq-in', 'value'),
+    Input('res', 'value'),
+    Input('ind', 'value'),
+    Input('cond', 'value'),
+    Input('cap', 'value'),
+    Input('freq', 'value'),
     Input('Re(k)', 'value'),
     Input('Im(k)', 'value'),
     Input('Re(Zc)', 'value'),
@@ -78,7 +78,7 @@ def update_kZc_xy(res, ind, cond, cap, freq,
     ctx = dash.callback_context
     trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
-    xyf = ('res-in', 'ind-in', 'cond-in','cap-in', 'freq-in')
+    xyf = ('res', 'ind', 'cond','cap', 'freq')
 
     if trigger_id in xyf:
         k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
@@ -91,26 +91,11 @@ def update_kZc_xy(res, ind, cond, cap, freq,
         res_out, ind_out, cond_out, cap_out = tr.kZc_to_xy(k_real + 1j*k_imag, 
                                                            Zc_real + 1j*Zc_imag)
         k_real_out, k_imag_out = k_real, k_imag
-
         Zc_real_out, Zc_imag_out = Zc_real, Zc_imag
+        freq_out = freq
     
     return (res_out, ind_out, cond_out, cap_out, freq_out,
             k_real_out, k_imag_out, Zc_real_out, Zc_imag_out,)
-
-# @app.callback(
-#     Output(component_id='Re(k)', component_property='value'),
-#     Output(component_id='Im(k)', component_property='value'),
-#     Output(component_id='Re(Zc)', component_property='value'),
-#     Output(component_id='Im(Zc)', component_property='value'),
-#     Input(component_id='res-in', component_property='value'),
-#     Input(component_id='ind-in', component_property='value'),
-#     Input(component_id='cond-in', component_property='value'),
-#     Input(component_id='cap-in', component_property='value'),
-#     Input(component_id='freq-in', component_property='value'),
-# )
-# def update_kZc(res, ind, cond, cap, freq):
-#     k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
-#     return k.real, k.imag, Zc.real, Zc.imag
 
 @app.callback(
     Output('graph', 'figure'),
@@ -118,7 +103,7 @@ def update_kZc_xy(res, ind, cond, cap, freq,
     Input('Im(k)', 'value'),
     Input('Re(Zc)', 'value'),
     Input('Im(Zc)', 'value'),
-    Input('d-in', 'value')
+    Input('d', 'value')
     )
 def update_figure(k_real, k_imag, Zc_real, Zc_imag, d):
     fig = ppl.plot_V_I(k_real + 1j*k_imag,

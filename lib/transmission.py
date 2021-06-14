@@ -51,9 +51,9 @@ def kZc_to_xy(k, Zc):
 
     # np.sqrt(c) returns the only solution to x**2 = c that has positive real part.
     # But I add here a check just in case...
-    if np.real(x) < 0 or np.imag(x) < 0:
+    if np.real(x) < 0:
         raise ValueError('real or imaginary part of x appears to be negative, fix this!')
-    if np.real(y) < 0 or np.imag(y) < 0:
+    if np.real(y) < 0:
         raise ValueError('real or imaginary part of y appears to be negative, fix this!')
 
     res = x.real
