@@ -11,6 +11,9 @@ def hybrid(k, Zc, d):
                 of the hybrid/transmission matrix
     '''
 
+    print('k', k)
+    print('d', d)
+
     kd = k*d
 
     A = np.cosh(kd)
