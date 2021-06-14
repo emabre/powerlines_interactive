@@ -12,6 +12,11 @@ def hybrid(k, Zc, d):
     '''
 
     kd = k*d
+    print(k, 'k')
+
+    print(d, 'd')
+
+    print(kd, 'kd')
 
     A = np.cosh(kd)
     B = Zc * np.sin(kd)
@@ -41,7 +46,7 @@ def xy_to_kZc(r, l, g, c, freq):
     
     return k, Zc
 
-def kZc_to_xy(k, Zc, f):
+def kZc_to_xy(k, Zc, freq):
     '''
     Provides the r, l, g, c of a powerline given the Zc and k parameters
     '''
