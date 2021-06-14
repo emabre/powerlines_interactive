@@ -11,9 +11,6 @@ def hybrid(k, Zc, d):
                 of the hybrid/transmission matrix
     '''
 
-    print('k', k)
-    print('d', d)
-
     kd = k*d
 
     A = np.cosh(kd)
@@ -44,7 +41,7 @@ def xy_to_kZc(r, l, g, c, freq):
     
     return k, Zc
 
-def kZc_to_xy(k, Zc):
+def kZc_to_xy(k, Zc, f):
     '''
     Provides the r, l, g, c of a powerline given the Zc and k parameters
     '''
@@ -60,9 +57,9 @@ def kZc_to_xy(k, Zc):
         raise ValueError('real or imaginary part of y appears to be negative, fix this!')
 
     res = x.real
-    ind = x.imag
+    ind = x.imag / (2*np.pi*freq)
     cond = y.real
-    cap = y.imag
+    cap = y.imag / (2*np.pi*freq)
 
     return res, ind, cond, cap
 

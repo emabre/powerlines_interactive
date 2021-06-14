@@ -89,7 +89,8 @@ def update_kZc_xy(res, ind, cond, cap, freq,
 
     else:
         res_out, ind_out, cond_out, cap_out = tr.kZc_to_xy(k_real + 1j*k_imag, 
-                                                           Zc_real + 1j*Zc_imag)
+                                                           Zc_real + 1j*Zc_imag,
+                                                           freq)
         k_real_out, k_imag_out = k_real, k_imag
         Zc_real_out, Zc_imag_out = Zc_real, Zc_imag
         freq_out = freq
