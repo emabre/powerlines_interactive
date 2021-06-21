@@ -14,7 +14,6 @@ def plot_V_I(k, Zc, L):
 
     #%%
     d = np.linspace(0,L, N)
-    tr.hybrid(Zc, k, d)
 
     A, B, C, D = tr.hybrid(k, Zc, d)
 
