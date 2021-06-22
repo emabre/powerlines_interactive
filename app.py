@@ -18,7 +18,7 @@ server = app.server
 
 #%% Layout
 app.layout = html.Div([
-    html.H2("Some plots"),
+    html.H2("Electrical quantities along a power line"),
     html.Div(["r = ",
               dcc.Input(id='res', value=12.5e-3, type='number'),
               " Ohm/km"]),
