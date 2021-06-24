@@ -12,11 +12,6 @@ def hybrid(k, Zc, d):
     '''
 
     kd = k*d
-    print(k, 'k')
-
-    print(d, 'd')
-
-    print(kd, 'kd')
 
     A = np.cosh(kd)
     B = Zc * np.sin(kd)

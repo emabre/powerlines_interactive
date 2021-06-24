@@ -2,54 +2,90 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
 
 from lib import plot_powerline as ppl
 from lib import transmission as tr
 from lib import utils as ut
 
 #%% Settings
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__,
-                external_stylesheets=external_stylesheets
-                )
+# app = dash.Dash(__name__,
+#                 external_stylesheets=external_stylesheets
+#                 )
+
+app = dash.Dash(external_stylesheets=[dbc.themes.MINTY])
+
+app.title = "Power line"
 
 server = app.server
 
 #%% Layout
-app.layout = html.Div([
-    html.H2("Electrical quantities along a power line"),
-    html.Div(["r = ",
-              dcc.Input(id='res', value=12.5e-3, type='number'),
-              " Ohm/km"]),
-    html.Div(["l = ",
-              dcc.Input(id='ind', value=0.576e-3, type='number'),
-              " H/km"]),
-    html.Div(["c = ",
-              dcc.Input(id='cap', value=234e-9, type='number'),
-              " F/km"]),
-    html.Div(["g = ",
-              dcc.Input(id='cond', value=51.459e-9, type='number'),
-              " S/km"]),
-    html.Div(["f = ",
-              dcc.Input(id='freq', value=50.0, type='number'),
-              " Hz"]),
-    html.Div(["d = ",
-              dcc.Input(id='d', value=100.0, type='number'),
-              " km"]),
-    html.Br(),
-    html.Div(['k = ',
-              dcc.Input(id='Re(k)', value=0.12718e-3, type='number'),
-              ' + j',
-              dcc.Input(id='Im(k)', value=3.6494e-3, type='number'),
-              ' 1/km']),
-    html.Div(['Zc = ',
-              dcc.Input(id='Re(Zc)', value=49.644, type='number'),
-              ' + j',
-              dcc.Input(id='Im(Zc)', value=-1.695, type='number'),
-              ' Ohm']),
-    dcc.Graph(id='graph'),
-])
+app.layout = dbc.Container([
+                            dbc.Row(
+                                    [
+                                        dbc.Col(
+                                            [
+                                            dbc.Row(
+                                                [
+                                                    html.H2("Electrical quantities along a power line")
+                                                ]
+                                            ),
+                                            html.Div(["r = ",
+                                                        dcc.Input(id='res', value=12.5e-3, type='number'),
+                                                    " Ohm/km"]
+                                            ),
+                                            html.Div(["l = ",
+                                                    dcc.Input(id='ind', value=0.576e-3, type='number'),
+                                                    " H/km"]
+                                            ),
+                                            ]
+                                        ),
+                                        dbc.Col(
+                                            [
+                                                dcc.Graph(id='graph'),
+                                            ]
+                                        )
+                                    ]
+                            )
+                            
+                        ],
+                        )
+
+# app.layout = html.Div([
+#     html.H2("Electrical quantities along a power line"),
+#     html.Div(["r = ",
+#               dcc.Input(id='res', value=12.5e-3, type='number'),
+#               " Ohm/km"]),
+#     html.Div(["l = ",
+#               dcc.Input(id='ind', value=0.576e-3, type='number'),
+#               " H/km"]),
+#     html.Div(["c = ",
+#               dcc.Input(id='cap', value=234e-9, type='number'),
+#               " F/km"]),
+#     html.Div(["g = ",
+#               dcc.Input(id='cond', value=51.459e-9, type='number'),
+#               " S/km"]),
+#     html.Div(["f = ",
+#               dcc.Input(id='freq', value=50.0, type='number'),
+#               " Hz"]),
+#     html.Div(["d = ",
+#               dcc.Input(id='d', value=100.0, type='number'),
+#               " km"]),
+#     html.Br(),
+#     html.Div(['k = ',
+#               dcc.Input(id='Re(k)', value=0.12718e-3, type='number'),
+#               ' + j',
+#               dcc.Input(id='Im(k)', value=3.6494e-3, type='number'),
+#               ' 1/km']),
+#     html.Div(['Zc = ',
+#               dcc.Input(id='Re(Zc)', value=49.644, type='number'),
+#               ' + j',
+#               dcc.Input(id='Im(Zc)', value=-1.695, type='number'),
+#               ' Ohm']),
+#     dcc.Graph(id='graph'),
+# ])
 
 #%% Callbacks
 @app.callback(
