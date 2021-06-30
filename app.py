@@ -63,6 +63,16 @@ app.layout = dbc.Container([
                                                         ' + j',
                                                         dcc.Input(id='Im(Zc)', value=-1.695, type='number'),
                                                         ' Ohm']),
+                                                html.Div(['Vs = ',
+                                                        dcc.Input(id='Re(Vs)', value=20.0e3, type='number'),
+                                                        ' + j',
+                                                        dcc.Input(id='Im(Vs)', value=0.0, type='number'),
+                                                        ' V']),
+                                                html.Div(['Vs = ',
+                                                        dcc.Input(id='Re(Is)', value=100.0, type='number'),
+                                                        ' + j',
+                                                        dcc.Input(id='Im(Is)', value=10.0, type='number'),
+                                                        ' A']),
                                             ]
                                         ),
                                         dbc.Col(
@@ -129,12 +139,22 @@ def update_kZc_xy(res, ind, cond, cap, freq,
     Input('Im(k)', 'value'),
     Input('Re(Zc)', 'value'),
     Input('Im(Zc)', 'value'),
-    Input('d', 'value')
-    )
-def update_figure(k_real, k_imag, Zc_real, Zc_imag, d):
+    Input('d', 'value'),
+    Input('Re(Vs)', 'value'),
+    Input('Im(Vs)', 'value'),
+    Input('Re(Is)', 'value'),
+    Input('Im(Is)', 'value'),
+)
+def update_figure(k_real, k_imag,
+                  Zc_real, Zc_imag,
+                  d,
+                  Vs_real, Vs_imag,
+                  Is_real, Is_imag):
     fig = ppl.plot_V_I(k_real + 1j*k_imag,
                        Zc_real + 1j*Zc_imag,
-                       d)
+                       d,
+                       Vs_real + 1j*Vs_imag,
+                       Is_real + 1j*Is_imag)
     return fig
 
 

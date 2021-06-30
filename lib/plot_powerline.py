@@ -2,15 +2,10 @@ import numpy as np
 from lib import transmission as tr
 import plotly.graph_objects as go
 
-def plot_V_I(k, Zc, L):
+def plot_V_I(k, Zc, L, Vs, Is):
     #%% Units in SI if not otherwise specified
     # L = 1000e3
     N = 100
-
-    # Electrical quantities at the source (s)
-    phi0 = -0.1*np.pi
-    Vs = 20.0e3
-    Is = 100. * np.exp(1j*phi0)
 
     #%%
     d = np.linspace(0,L, N)
