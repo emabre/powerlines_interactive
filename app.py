@@ -15,23 +15,22 @@ from lib import utils as ut
 #                 external_stylesheets=external_stylesheets
 #                 )
 
-app = dash.Dash(external_stylesheets=[dbc.themes.MINTY])
+app = dash.Dash(external_stylesheets=[dbc.themes.CERULEAN])
 
 app.title = "Power line"
 
 server = app.server
 
 #%% Layout
-app.layout = dbc.Container([
-                            dbc.Row(
-                                    [
-                                        dbc.Col(
-                                            [
-                                                dbc.Row(
+app.layout = dbc.Container([dbc.Row(
                                                     [
                                                         html.H2("Electrical quantities along a power line")
                                                     ]
                                                 ),
+                            dbc.Row(
+                                    [
+                                        dbc.Col(
+                                            [
                                                 html.Div(["r = ",
                                                             dcc.Input(id='res', value=12.5e-3, type='number'),
                                                         " Ohm/km"]
