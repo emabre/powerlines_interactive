@@ -1,10 +1,11 @@
 import numpy as np
 from lib import transmission as tr
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
 
 def plot_V_I(k, Zc, L, Vs, Is):
     #%% Units in SI if not otherwise specified
-    # L = 1000e3
     N = 100
 
     #%%
@@ -17,7 +18,7 @@ def plot_V_I(k, Zc, L, Vs, Is):
     T_l = []  # Obviously T has lenght shorter by 1 than the lenght of ws
     for ii in range(len(d)):
         T_l.append(np.array(((A[ii], B[ii]),
-                        (C[ii], D[ii]))))
+                            (C[ii], D[ii]))))
         w_l.append(np.dot(T_l[ii], ws))
 
 
@@ -38,14 +39,23 @@ def plot_V_I(k, Zc, L, Vs, Is):
     A = np.abs(S)
 
     #%%
+    # Create figure with secondary y-axis
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-    traces = [go.Scatter(x = d[:100],
-                        y = V_abs[1:101],
-                        mode = 'lines'),
-            go.Scatter(x = d[:100],
-                        y = I_abs[1:101],
-                        mode = 'lines')
-            ]
-    fig = go.Figure(data = traces)
+    fig.add_trace(go.Scatter(x = d,
+                            y = V_abs,
+                            mode = 'lines',
+                            name = '|V|'),
+                  secondary_y=False,
+                  )
+    fig.add_trace(go.Scatter(x = d,
+                            y = I_abs,
+                            mode = 'lines',
+                            name = '|I|'),
+                  secondary_y = True,
+                 )
 
+    fig.update_yaxes(title_text="Voltage / V", secondary_y=False)
+    fig.update_yaxes(title_text="Current / A", secondary_y=True)
+    
     return fig
