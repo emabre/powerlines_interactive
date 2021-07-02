@@ -40,22 +40,42 @@ def plot_V_I(k, Zc, L, Vs, Is):
 
     #%%
     # Create figure with secondary y-axis
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
+    fig = make_subplots(rows = 2,
+                        cols = 1, 
+                        specs=[[{"secondary_y": True}],[dict()]])
 
     fig.add_trace(go.Scatter(x = d,
                             y = V_abs,
                             mode = 'lines',
                             name = '|V|'),
-                  secondary_y=False,
+                  secondary_y = False,
                   )
     fig.add_trace(go.Scatter(x = d,
                             y = I_abs,
                             mode = 'lines',
                             name = '|I|'),
                   secondary_y = True,
+                  row = 1,
+                  col = 1
+                 )
+    fig.add_trace(go.Scatter(x = d,
+                            y = I_phase,
+                            mode = 'lines',
+                            name = 'phi_I'),
+                 row = 2,
+                 col = 1
+                 )
+    fig.add_trace(go.Scatter(x = d,
+                            y = V_phase,
+                            mode = 'lines',
+                            name = 'phi_V'),
+                 row = 2,
+                 col = 1
                  )
 
-    fig.update_yaxes(title_text="Voltage / V", secondary_y=False)
-    fig.update_yaxes(title_text="Current / A", secondary_y=True)
+    fig.update_yaxes(title_text="Voltage / V", secondary_y=False, row = 1, col = 1)
+    fig.update_yaxes(title_text="Current / A", secondary_y=True, row = 1, col = 1)
+    fig.update_yaxes(title_text="Phase / rad", row = 2, col = 1)
+    fig.update_xaxes(title_text="Distance / m", row = 2, col = 1)
     
     return fig

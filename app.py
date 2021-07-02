@@ -67,7 +67,7 @@ app.layout = dbc.Container([dbc.Row(
                                                         ' + j',
                                                         dcc.Input(id='Im(Vs)', value=0.0, type='number'),
                                                         ' V']),
-                                                html.Div(['Vs = ',
+                                                html.Div(['Is = ',
                                                         dcc.Input(id='Re(Is)', value=100.0, type='number'),
                                                         ' + j',
                                                         dcc.Input(id='Im(Is)', value=10.0, type='number'),
