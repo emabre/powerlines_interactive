@@ -42,7 +42,8 @@ def plot_V_I(k, Zc, L, Vs, Is):
     # Create figure with secondary y-axis
     fig = make_subplots(rows = 2,
                         cols = 1, 
-                        specs=[[{"secondary_y": True}],[dict()]])
+                        specs=[[{"secondary_y": True}],
+                               [{"secondary_y": True}]])
 
     fig.add_trace(go.Scatter(x = d,
                             y = V_abs,
@@ -72,10 +73,44 @@ def plot_V_I(k, Zc, L, Vs, Is):
                  row = 2,
                  col = 1
                  )
+    fig.add_trace(go.Scatter(x = d,
+                            y = P,
+                            mode = 'lines',
+                            name = 'P'),
+                secondary_y = True,
+                 row = 2,
+                 col = 1
+                 )
+    fig.add_trace(go.Scatter(x = d,
+                            y = Q,
+                            mode = 'lines',
+                            name = 'Q'),
+                secondary_y = True,
+                 row = 2,
+                 col = 1
+                 )
 
-    fig.update_yaxes(title_text="Voltage / V", secondary_y=False, row = 1, col = 1)
-    fig.update_yaxes(title_text="Current / A", secondary_y=True, row = 1, col = 1)
-    fig.update_yaxes(title_text="Phase / rad", row = 2, col = 1)
-    fig.update_xaxes(title_text="Distance / m", row = 2, col = 1)
+    fig.update_yaxes(title_text="Voltage / V",
+                     showgrid = False,
+                     zeroline = False,
+                      secondary_y=False,
+                     row = 1, col = 1)
+    fig.update_yaxes(title_text="Current / A",
+                     showgrid = False,
+                     zeroline = False,
+                     secondary_y=True,
+                     row = 1, col = 1)
+    fig.update_yaxes(title_text="Phase / rad",
+                     showgrid = False,
+                     zeroline = False,
+                     secondary_y=False,
+                     row = 2, col = 1)
+    fig.update_yaxes(title_text="Power / W",
+                     showgrid = False,
+                     secondary_y=True,
+                     zeroline = False,
+                     row = 2, col = 1)
+    fig.update_xaxes(title_text="Distance / m",
+                     row = 2, col = 1)
     
     return fig
