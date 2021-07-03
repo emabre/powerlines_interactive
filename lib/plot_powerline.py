@@ -113,4 +113,12 @@ def plot_V_I(k, Zc, L, Vs, Is):
     fig.update_xaxes(title_text="Distance / m",
                      row = 2, col = 1)
     
+    fig.update_layout(legend=dict(
+                    orientation="h",
+                    yanchor="bottom",
+                    y=1.02,
+                    xanchor="right",
+                    x=0.5
+                ))
+    
     return fig
