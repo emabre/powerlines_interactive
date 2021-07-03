@@ -17,8 +17,8 @@ def plot_V_I(k, Zc, L, Vs, Is):
     w_l = [ws]
     T_l = []  # Obviously T has lenght shorter by 1 than the lenght of ws
     for ii in range(len(d)):
-        T_l.append(np.array(((A[ii], B[ii]),
-                            (C[ii], D[ii]))))
+        T_l.append(np.array(((D[ii], -B[ii]),
+                            (-C[ii], A[ii]))))
         w_l.append(np.dot(T_l[ii], ws))
 
 
@@ -98,30 +98,32 @@ def plot_V_I(k, Zc, L, Vs, Is):
                  col = 1
                  )
 
-    fig.update_yaxes(title_text="Voltage / V",
+    fig.update_yaxes(title_text="Voltage (V)",
                      showgrid = False,
                      zeroline = False,
                       secondary_y=False,
                      row = 1, col = 1)
-    fig.update_yaxes(title_text="Current / A",
+    fig.update_yaxes(title_text="Current (A)",
                      showgrid = False,
                      zeroline = False,
                      secondary_y=True,
                      row = 1, col = 1)
-    fig.update_yaxes(title_text="Phase / rad",
+    fig.update_yaxes(title_text="Phase (rad)",
                      showgrid = False,
                      zeroline = False,
                      secondary_y=False,
                      row = 2, col = 1)
-    fig.update_yaxes(title_text="Power / W",
+    fig.update_yaxes(title_text="Power (W)",
                      showgrid = False,
                      secondary_y=True,
                      zeroline = False,
+                    #  type = 'log',
                      row = 2, col = 1)
-    fig.update_xaxes(title_text="Distance / m",
+    fig.update_xaxes(title_text="Distance from sending end (km)",
                      row = 2, col = 1)
     
-    fig.update_layout(legend=dict(
+    fig.update_layout( paper_bgcolor  = "#e7e2cf",
+                    legend=dict(
                     orientation="h",
                     yanchor="bottom",
                     y=1.02,

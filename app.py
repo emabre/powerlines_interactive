@@ -22,9 +22,12 @@ app.title = "Power line"
 server = app.server
 
 #%% Layout
+
+width_perc = '30%'
 app.layout = dbc.Container([dbc.Row(
                                                     [
-                                                        html.H2("Electrical quantities along a power line")
+                                                        html.H2("Electrical quantities along a power line"),
+                                                        html.H4("Given the state (V, I) at the sending end, and the line properties (r, l, g, c or Zc and k)"),                                                        
                                                     ]
                                                 ),
                             dbc.Row(
@@ -32,47 +35,53 @@ app.layout = dbc.Container([dbc.Row(
                                         dbc.Col(
                                             [
                                                 html.Div(["r = ",
-                                                            dcc.Input(id='res', value=12.5e-3, type='number'),
+                                                            dcc.Input(id='res', value=12.5e-3, type='number', style={'width':width_perc}),
                                                         " Ohm/km"]
                                                 ),
                                                 html.Div(["l = ",
-                                                        dcc.Input(id='ind', value=0.576e-3, type='number'),
+                                                        dcc.Input(id='ind', value=0.576e-3, type='number', style={'width':width_perc}),
                                                         " H/km"]
                                                 ),
                                                 html.Div(["c = ",
-                                                        dcc.Input(id='cap', value=234e-9, type='number'),
+                                                        dcc.Input(id='cap', value=234e-9, type='number', style={'width':width_perc}),
                                                         " F/km"]),
                                                 html.Div(["g = ",
-                                                        dcc.Input(id='cond', value=51.459e-9, type='number'),
+                                                        dcc.Input(id='cond', value=51.459e-9, type='number', style={'width':width_perc}),
                                                         " S/km"]),
                                                 html.Div(["f = ",
-                                                        dcc.Input(id='freq', value=50.0, type='number'),
+                                                        dcc.Input(id='freq', value=50.0, type='number', style={'width':width_perc}),
                                                         " Hz"]),
                                                 html.Div(["d = ",
-                                                        dcc.Input(id='d', value=100.0, type='number'),
+                                                        dcc.Input(id='d', value=100.0, type='number', style={'width':width_perc}),
                                                         " km"]),
                                                 html.Br(),
                                                 html.Div(['k = ',
-                                                        dcc.Input(id='Re(k)', value=0.12718e-3, type='number'),
+                                                        dcc.Input(id='Re(k)', value=0.12718e-3, type='number', style={'width':width_perc}),
                                                         ' + j',
-                                                        dcc.Input(id='Im(k)', value=3.6494e-3, type='number'),
+                                                        dcc.Input(id='Im(k)', value=3.6494e-3, type='number', style={'width':width_perc}),
                                                         ' 1/km']),
                                                 html.Div(['Zc = ',
-                                                        dcc.Input(id='Re(Zc)', value=49.644, type='number'),
+                                                        dcc.Input(id='Re(Zc)', value=49.644, type='number', style={'width':width_perc}),
                                                         ' + j',
-                                                        dcc.Input(id='Im(Zc)', value=-1.695, type='number'),
+                                                        dcc.Input(id='Im(Zc)', value=-1.695, type='number', style={'width':width_perc}),
                                                         ' Ohm']),
                                                 html.Div(['Vs = ',
-                                                        dcc.Input(id='Re(Vs)', value=20.0e3, type='number'),
+                                                        dcc.Input(id='Re(Vs)', value=20.0e3, type='number',
+                                                                  style={'width':width_perc}),
                                                         ' + j',
-                                                        dcc.Input(id='Im(Vs)', value=0.0, type='number'),
+                                                        dcc.Input(id='Im(Vs)', value=0.0, type='number',
+                                                                  style={'width':width_perc}),
                                                         ' V']),
                                                 html.Div(['Is = ',
-                                                        dcc.Input(id='Re(Is)', value=100.0, type='number'),
+                                                        dcc.Input(id='Re(Is)', value=100.0, type='number',
+                                                                  style={'width':width_perc}),
                                                         ' + j',
-                                                        dcc.Input(id='Im(Is)', value=10.0, type='number'),
+                                                        dcc.Input(id='Im(Is)', value=10.0, type='number',
+                                                                  style={'width':width_perc},
+                                                                  ),
                                                         ' A']),
-                                            ]
+                                            ],
+                                        className = 'col-6',
                                         ),
                                         dbc.Col(
                                             [
