@@ -48,13 +48,15 @@ def plot_V_I(k, Zc, L, Vs, Is):
     fig.add_trace(go.Scatter(x = d,
                             y = V_abs,
                             mode = 'lines',
-                            name = '|V|'),
+                            name = '|V|',
+                            line = {'color': 'blue'}),
                   secondary_y = False,
                   )
     fig.add_trace(go.Scatter(x = d,
                             y = I_abs,
                             mode = 'lines',
-                            name = '|I|'),
+                            name = '|I|',
+                            line = {'color': 'red'}),
                   secondary_y = True,
                   row = 1,
                   col = 1
@@ -62,21 +64,26 @@ def plot_V_I(k, Zc, L, Vs, Is):
     fig.add_trace(go.Scatter(x = d,
                             y = I_phase,
                             mode = 'lines',
-                            name = 'phi_I'),
+                            name = 'φ_I',
+                            line = {'color': 'red',
+                                    'dash' : 'dash'}),
                  row = 2,
                  col = 1
                  )
     fig.add_trace(go.Scatter(x = d,
                             y = V_phase,
                             mode = 'lines',
-                            name = 'phi_V'),
+                            name = 'φ_V',
+                            line = {'color': 'blue',
+                                    'dash' : 'dash'}),
                  row = 2,
                  col = 1
                  )
     fig.add_trace(go.Scatter(x = d,
                             y = P,
                             mode = 'lines',
-                            name = 'P'),
+                            name = 'P',
+                            line = {'color': 'green'}),
                 secondary_y = True,
                  row = 2,
                  col = 1
@@ -84,7 +91,8 @@ def plot_V_I(k, Zc, L, Vs, Is):
     fig.add_trace(go.Scatter(x = d,
                             y = Q,
                             mode = 'lines',
-                            name = 'Q'),
+                            name = 'Q',
+                            line = {'color': 'gray'}),
                 secondary_y = True,
                  row = 2,
                  col = 1
