@@ -55,6 +55,36 @@ kZc_card = dbc.Card(
     body=True,
 )
 
+VsIs_card = dbc.Card(
+    [
+        dbc.FormGroup(
+            [
+                dbc.Label("Vs (V)"),
+                dbc.Row(
+                    [
+                        dbc.Col([dbc.Input(id="Re(Vs)", value=20e3, type='number')], width=5),
+                        dbc.Col([html.Div(' + j')], width=2),
+                        dbc.Col([dbc.Input(id="Im(Vs)", value=0, type='number')], width=5),
+                    ]
+                )
+            ]
+        ),
+        dbc.FormGroup(
+            [
+                dbc.Label("Is (1/km)"),
+                dbc.Row(
+                    [
+                        dbc.Col([dbc.Input(id="Re(Is)", value=100.0, type='number')], width=5),
+                        dbc.Col([html.Div(' + j')], width=2),
+                        dbc.Col([dbc.Input(id="Im(Is)", value=10.0, type='number')], width=5),
+                    ]
+                )
+            ]
+        ),
+    ],
+    body=True,
+)
+
 app.layout = dbc.Container([dbc.Row(
                                                     [
                                                         html.H2("Electrical quantities along a power line"),
@@ -88,31 +118,7 @@ app.layout = dbc.Container([dbc.Row(
                                                         " km"]),
                                                 html.Br(),
                                                 kZc_card,
-                                                # html.Div(['k = ',
-                                                #         dcc.Input(id='Re(k)', value=0.12718e-3, type='number', style={'width':width_perc}),
-                                                #         ' + j',
-                                                #         dcc.Input(id='Im(k)', value=3.6494e-3, type='number', style={'width':width_perc}),
-                                                #         ' 1/km']),
-                                                # html.Div(['Zc = ',
-                                                #         dcc.Input(id='Re(Zc)', value=49.644, type='number', style={'width':width_perc}),
-                                                #         ' + j',
-                                                #         dcc.Input(id='Im(Zc)', value=-1.695, type='number', style={'width':width_perc}),
-                                                #         ' Ohm']),
-                                                html.Div(['Vs = ',
-                                                        dcc.Input(id='Re(Vs)', value=20.0e3, type='number',
-                                                                  style={'width':width_perc}),
-                                                        ' + j',
-                                                        dcc.Input(id='Im(Vs)', value=0.0, type='number',
-                                                                  style={'width':width_perc}),
-                                                        ' V']),
-                                                html.Div(['Is = ',
-                                                        dcc.Input(id='Re(Is)', value=100.0, type='number',
-                                                                  style={'width':width_perc}),
-                                                        ' + j',
-                                                        dcc.Input(id='Im(Is)', value=10.0, type='number',
-                                                                  style={'width':width_perc},
-                                                                  ),
-                                                        ' A']),
+                                                VsIs_card
                                             ],
                                         className = 'col-6',
                                         ),
