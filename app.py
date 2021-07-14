@@ -51,7 +51,8 @@ kZc_card = dbc.Card(
                 )
             ]
         ),
-    ]
+    ],
+    body=True,
 )
 
 app.layout = dbc.Container([dbc.Row(
@@ -59,13 +60,7 @@ app.layout = dbc.Container([dbc.Row(
                                                         html.H2("Electrical quantities along a power line"),
                                                         html.H4("Given the state (V, I) at the sending end, and the line properties (r, l, g, c or Zc and k)"),                                                        
                                                     ]
-                                                ),
-                            dbc.Row(
-                                [
-                                    
-                                ]
-                            ),
-                            
+                                                ),                        
 
 
 
@@ -92,6 +87,7 @@ app.layout = dbc.Container([dbc.Row(
                                                         dcc.Input(id='d', value=100.0, type='number', style={'width':width_perc}),
                                                         " km"]),
                                                 html.Br(),
+                                                kZc_card,
                                                 # html.Div(['k = ',
                                                 #         dcc.Input(id='Re(k)', value=0.12718e-3, type='number', style={'width':width_perc}),
                                                 #         ' + j',
@@ -128,9 +124,6 @@ app.layout = dbc.Container([dbc.Row(
                                     ]
                             )
                             
-                        ],
-                        )
-
 #%% Callbacks
 @app.callback(
     Output('res', 'value'),
