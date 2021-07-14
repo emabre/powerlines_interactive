@@ -71,12 +71,84 @@ VsIs_card = dbc.Card(
         ),
         dbc.FormGroup(
             [
-                dbc.Label("Is (1/km)"),
+                dbc.Label("Is (A)"),
                 dbc.Row(
                     [
                         dbc.Col([dbc.Input(id="Re(Is)", value=100.0, type='number')], width=5),
                         dbc.Col([html.Div(' + j')], width=2),
                         dbc.Col([dbc.Input(id="Im(Is)", value=10.0, type='number')], width=5),
+                    ]
+                )
+            ]
+        ),
+    ],
+    body=True,
+)
+
+rlgc_card = dbc.Card(
+    [
+        dbc.FormGroup(
+            [
+                dbc.Label("r (Ohm/km)"),
+                dbc.Row(
+                    [
+                        dbc.Col([dbc.Input(id='res', value=12.5e-3, type='number')])
+                    ]
+                )
+            ]
+        ),
+        dbc.FormGroup(
+            [
+                dbc.Label("l (H/km)"),
+                dbc.Row(
+                    [
+                        dbc.Col([dbc.Input(id='ind', value=0.576e-3, type='number')])
+                    ]
+                )
+            ]
+        ),
+        dbc.FormGroup(
+            [
+                dbc.Label("g (S/km"),
+                dbc.Row(
+                    [
+                        dbc.Col([dbc.Input(id='cond', value=51.459e-9, type='number')])
+                    ]
+                )
+            ]
+        ),
+        dbc.FormGroup(
+            [
+                dbc.Label("c (F/km)"),
+                dbc.Row(
+                    [
+                        dbc.Col([dbc.Input(id='cap', value=234e-9, type='number')])
+                    ]
+                )
+            ]
+        ),
+    ],
+    body=True,
+)
+
+fd_card = dbc.Card(
+    [
+        dbc.FormGroup(
+            [
+                dbc.Label("f (Hz)"),
+                dbc.Row(
+                    [
+                        dbc.Col([dbc.Input(id='freq', value=50.0, type='number')])
+                    ]
+                )
+            ]
+        ),
+        dbc.FormGroup(
+            [
+                dbc.Label("d (km)"),
+                dbc.Row(
+                    [
+                        dbc.Col([dbc.Input(id='d', value=100.0, type='number')])
                     ]
                 )
             ]
@@ -96,29 +168,30 @@ app.layout = dbc.Container([dbc.Row(
 
                                         dbc.Col(
                                             [
-                                                html.Div(["r = ",
-                                                            dcc.Input(id='res', value=12.5e-3, type='number', style={'width':width_perc}),
-                                                        " Ohm/km"]
-                                                ),
-                                                html.Div(["l = ",
-                                                        dcc.Input(id='ind', value=0.576e-3, type='number', style={'width':width_perc}),
-                                                        " H/km"]
-                                                ),
-                                                html.Div(["c = ",
-                                                        dcc.Input(id='cap', value=234e-9, type='number', style={'width':width_perc}),
-                                                        " F/km"]),
-                                                html.Div(["g = ",
-                                                        dcc.Input(id='cond', value=51.459e-9, type='number', style={'width':width_perc}),
-                                                        " S/km"]),
-                                                html.Div(["f = ",
-                                                        dcc.Input(id='freq', value=50.0, type='number', style={'width':width_perc}),
-                                                        " Hz"]),
-                                                html.Div(["d = ",
-                                                        dcc.Input(id='d', value=100.0, type='number', style={'width':width_perc}),
-                                                        " km"]),
-                                                html.Br(),
+                                                # html.Div(["r = ",
+                                                #             dcc.Input(id='res', value=12.5e-3, type='number', style={'width':width_perc}),
+                                                #         " Ohm/km"]
+                                                # ),
+                                                # html.Div(["l = ",
+                                                #         dcc.Input(id='ind', value=0.576e-3, type='number', style={'width':width_perc}),
+                                                #         " H/km"]
+                                                # ),
+                                                # html.Div(["c = ",
+                                                #         dcc.Input(id='cap', value=234e-9, type='number', style={'width':width_perc}),
+                                                #         " F/km"]),
+                                                # html.Div(["g = ",
+                                                #         dcc.Input(id='cond', value=51.459e-9, type='number', style={'width':width_perc}),
+                                                #         " S/km"]),
+                                                # html.Div(["f = ",
+                                                #         dcc.Input(id='freq', value=50.0, type='number', style={'width':width_perc}),
+                                                #         " Hz"]),
+                                                # html.Div(["d = ",
+                                                #         dcc.Input(id='d', value=100.0, type='number', style={'width':width_perc}),
+                                                #         " km"]),
                                                 kZc_card,
-                                                VsIs_card
+                                                VsIs_card,
+                                                rlgc_card,
+                                                fd_card
                                             ],
                                         className = 'col-6',
                                         ),
