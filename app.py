@@ -157,51 +157,31 @@ fd_card = dbc.Card(
     body=True,
 )
 
-app.layout = dbc.Container([dbc.Row(
-                                                    [
-                                                        html.H2("Electrical quantities along a power line"),
-                                                        html.H4("Given the state (V, I) at the sending end, and the line properties (r, l, g, c or Zc and k)"),                                                        
-                                                    ]
-                                                ),                        
+app.layout = dbc.Container(
+    [
+        dbc.Row(
+            [
+                html.H2("Electrical quantities along a power line"),
+                html.H4("Given the state (V, I) at the sending end, and the line properties (r, l, g, c or Zc and k)"),                                                        
+            ]
+        ),                        
 
-
-
-                                        dbc.Col(
-                                            [
-                                                # html.Div(["r = ",
-                                                #             dcc.Input(id='res', value=12.5e-3, type='number', style={'width':width_perc}),
-                                                #         " Ohm/km"]
-                                                # ),
-                                                # html.Div(["l = ",
-                                                #         dcc.Input(id='ind', value=0.576e-3, type='number', style={'width':width_perc}),
-                                                #         " H/km"]
-                                                # ),
-                                                # html.Div(["c = ",
-                                                #         dcc.Input(id='cap', value=234e-9, type='number', style={'width':width_perc}),
-                                                #         " F/km"]),
-                                                # html.Div(["g = ",
-                                                #         dcc.Input(id='cond', value=51.459e-9, type='number', style={'width':width_perc}),
-                                                #         " S/km"]),
-                                                # html.Div(["f = ",
-                                                #         dcc.Input(id='freq', value=50.0, type='number', style={'width':width_perc}),
-                                                #         " Hz"]),
-                                                # html.Div(["d = ",
-                                                #         dcc.Input(id='d', value=100.0, type='number', style={'width':width_perc}),
-                                                #         " km"]),
-                                                kZc_card,
-                                                VsIs_card,
-                                                rlgc_card,
-                                                fd_card
-                                            ],
-                                        className = 'col-6',
-                                        ),
-                                        dbc.Col(
-                                            [
-                                                dcc.Graph(id='graph'),
-                                            ]
-                                        )
-                                    ]
-                            )
+        dbc.Col(
+            [
+                kZc_card,
+                VsIs_card,
+                rlgc_card,
+                fd_card
+            ],
+            className = 'col-6',
+            ),
+            dbc.Col(
+                [
+                    dcc.Graph(id='graph'),
+                ]
+            )
+    ]
+)
                             
 #%% Callbacks
 @app.callback(
