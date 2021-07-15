@@ -115,7 +115,7 @@ rlgc_card = dbc.Card(
                     [
                         dbc.FormGroup(
                             [
-                                dbc.Label("g (S/km"),
+                                dbc.Label("g (S/km)"),
                                 dbc.Input(id='cond', value=51.459e-9, type='number')
                             ]
                         ),
@@ -172,38 +172,32 @@ app.layout = dbc.Container(
         dbc.Row(
             [
                 html.H2("Electrical quantities along a power line"),
-                html.H4("Given the state (V, I) at the sending end, and the line properties (r, l, g, c or Zc and k)"),                                                        
-            ]
-        ),                        
-        dbc.Row(
-            [
-                dbc.Col(
-                    [
-                        kZc_card
-                    ]
-                ),
-                dbc.Col(
-                    [
-                        rlgc_card
-                    ]
-                )
             ]
         ),
         dbc.Row(
             [
+                html.H4("Given the state (V, I) at the sending end, and the line properties (r, l, g, c or Zc and k)"),                                                        
+            ]
+        ),     
+        dbc.Row(
+            [
                 dbc.Col(
                     [
+                        kZc_card,
+                        rlgc_card,
                         VsIs_card,
                         fd_card
-                    ]
+                    ],
+                    width = 5
                 ),
                 dbc.Col(
                     [
                         dcc.Graph(id='graph'),
-                    ]
+                    ],
+                    width = 7
                 )
             ]
-        )
+        ),
     ],
     # fluid = True
 )
