@@ -23,6 +23,9 @@ server = app.server
 
 #%% Layout
 
+VsText = html.Div(["V", html.Sub(["s"]), " (V)"])
+IsText = html.Div(["I", html.Sub(["s"]), " (A)"])
+
 kZc_card = dbc.Card(
     [
         dbc.FormGroup(
@@ -57,7 +60,7 @@ VsIs_card = dbc.Card(
     [
         dbc.FormGroup(
             [
-                dbc.Label("Vs (V)"),
+                dbc.Label(VsText),
                 dbc.Row(
                     [
                         dbc.Col([dbc.Input(id="Re(Vs)", value=20e3, type='number')], width=5),
@@ -69,7 +72,7 @@ VsIs_card = dbc.Card(
         ),
         dbc.FormGroup(
             [
-                dbc.Label("Is (A)"),
+                dbc.Label(IsText),
                 dbc.Row(
                     [
                         dbc.Col([dbc.Input(id="Re(Is)", value=100.0, type='number')], width=5),
@@ -145,7 +148,7 @@ fd_card = dbc.Card(
                     [
                         dbc.FormGroup(
                             [
-                                dbc.Label("f (Hz)"),
+                                dbc.Label("frequency (Hz)"),
                                 dbc.Input(id='freq', value=50.0, type='number')
                             ]
                         ),
@@ -155,7 +158,7 @@ fd_card = dbc.Card(
                     [
                         dbc.FormGroup(
                             [
-                                dbc.Label("d (km)"),
+                                bc.Label("line length (km)"),
                                 dbc.Input(id='d', value=100.0, type='number')
                             ]
                         ),
@@ -176,7 +179,7 @@ app.layout = dbc.Container(
         ),
         dbc.Row(
             [
-                html.H4("Given the state (V, I) at the sending end, and the line properties (r, l, g, c or Zc and k)"),                                                        
+                html.H4(["Given the voltage and current at the sending end, and the line properties"]),                                                        
             ]
         ),     
         dbc.Row(
