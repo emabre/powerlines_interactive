@@ -87,46 +87,62 @@ VsIs_card = dbc.Card(
 
 rlgc_card = dbc.Card(
     [
-        dbc.FormGroup(
+        dbc.Row(
             [
-                dbc.Label("r (Ohm/km)"),
-                dbc.Row(
+                dbc.Col(
                     [
-                        dbc.Col([dbc.Input(id='res', value=12.5e-3, type='number')])
+                        dbc.FormGroup(
+                            [
+                                dbc.Label("r (Ohm/km)"),
+                                dbc.Input(id='res', value=12.5e-3, type='number')
+                            ]
+                        ),
+                    ]
+                ),
+                dbc.Col(
+                    [
+                        dbc.FormGroup(
+                            [
+                                dbc.Label("l (H/km)"),
+                                dbc.Input(id='ind', value=0.576e-3, type='number')
+                            ]
+                        ),
                     ]
                 )
             ]
         ),
-        dbc.FormGroup(
+        dbc.Row(
             [
-                dbc.Label("l (H/km)"),
-                dbc.Row(
+                dbc.Col(
                     [
-                        dbc.Col([dbc.Input(id='ind', value=0.576e-3, type='number')])
+                        dbc.FormGroup(
+                            [
+                                dbc.Label("g (S/km"),
+                                dbc.Row(
+                                    [
+                                        dbc.Col([dbc.Input(id='cond', value=51.459e-9, type='number')])
+                                    ]
+                                )
+                            ]
+                        ),
+                    ]
+                ),
+                dbc.Col(
+                    [
+                        dbc.FormGroup(
+                            [
+                                dbc.Label("c (F/km)"),
+                                dbc.Row(
+                                    [
+                                        dbc.Col([dbc.Input(id='cap', value=234e-9, type='number')])
+                                    ]
+                                )
+                            ]
+                        ),
                     ]
                 )
             ]
-        ),
-        dbc.FormGroup(
-            [
-                dbc.Label("g (S/km"),
-                dbc.Row(
-                    [
-                        dbc.Col([dbc.Input(id='cond', value=51.459e-9, type='number')])
-                    ]
-                )
-            ]
-        ),
-        dbc.FormGroup(
-            [
-                dbc.Label("c (F/km)"),
-                dbc.Row(
-                    [
-                        dbc.Col([dbc.Input(id='cap', value=234e-9, type='number')])
-                    ]
-                )
-            ]
-        ),
+        ) 
     ],
     body=True,
 )
@@ -180,7 +196,8 @@ app.layout = dbc.Container(
                     dcc.Graph(id='graph'),
                 ]
             )
-    ]
+    ],
+    # fluid = True
 )
                             
 #%% Callbacks
