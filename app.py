@@ -23,8 +23,6 @@ server = app.server
 
 #%% Layout
 
-width_perc = '30%'
-
 kZc_card = dbc.Card(
     [
         dbc.FormGroup(
@@ -118,11 +116,7 @@ rlgc_card = dbc.Card(
                         dbc.FormGroup(
                             [
                                 dbc.Label("g (S/km"),
-                                dbc.Row(
-                                    [
-                                        dbc.Col([dbc.Input(id='cond', value=51.459e-9, type='number')])
-                                    ]
-                                )
+                                dbc.Input(id='cond', value=51.459e-9, type='number')
                             ]
                         ),
                     ]
@@ -132,11 +126,7 @@ rlgc_card = dbc.Card(
                         dbc.FormGroup(
                             [
                                 dbc.Label("c (F/km)"),
-                                dbc.Row(
-                                    [
-                                        dbc.Col([dbc.Input(id='cap', value=234e-9, type='number')])
-                                    ]
-                                )
+                                dbc.Input(id='cap', value=234e-9, type='number')
                             ]
                         ),
                     ]
@@ -149,26 +139,30 @@ rlgc_card = dbc.Card(
 
 fd_card = dbc.Card(
     [
-        dbc.FormGroup(
+        dbc.Row(
             [
-                dbc.Label("f (Hz)"),
-                dbc.Row(
+                dbc.Col(
                     [
-                        dbc.Col([dbc.Input(id='freq', value=50.0, type='number')])
+                        dbc.FormGroup(
+                            [
+                                dbc.Label("f (Hz)"),
+                                dbc.Input(id='freq', value=50.0, type='number')
+                            ]
+                        ),
+                    ]
+                ),
+                dbc.Col(
+                    [
+                        dbc.FormGroup(
+                            [
+                                dbc.Label("d (km)"),
+                                dbc.Input(id='d', value=100.0, type='number')
+                            ]
+                        ),
                     ]
                 )
             ]
-        ),
-        dbc.FormGroup(
-            [
-                dbc.Label("d (km)"),
-                dbc.Row(
-                    [
-                        dbc.Col([dbc.Input(id='d', value=100.0, type='number')])
-                    ]
-                )
-            ]
-        ),
+        )
     ],
     body=True,
 )
@@ -181,21 +175,35 @@ app.layout = dbc.Container(
                 html.H4("Given the state (V, I) at the sending end, and the line properties (r, l, g, c or Zc and k)"),                                                        
             ]
         ),                        
-
-        dbc.Col(
+        dbc.Row(
             [
-                kZc_card,
-                VsIs_card,
-                rlgc_card,
-                fd_card
-            ],
-            className = 'col-6',
-            ),
-            dbc.Col(
-                [
-                    dcc.Graph(id='graph'),
-                ]
-            )
+                dbc.Col(
+                    [
+                        kZc_card
+                    ]
+                ),
+                dbc.Col(
+                    [
+                        rlgc_card
+                    ]
+                )
+            ]
+        ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        VsIs_card,
+                        fd_card
+                    ]
+                ),
+                dbc.Col(
+                    [
+                        dcc.Graph(id='graph'),
+                    ]
+                )
+            ]
+        )
     ],
     # fluid = True
 )
