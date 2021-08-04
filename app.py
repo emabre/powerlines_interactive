@@ -158,7 +158,7 @@ fd_card = dbc.Card(
                     [
                         dbc.FormGroup(
                             [
-                                bc.Label("line length (km)"),
+                                dbc.Label("line length (km)"),
                                 dbc.Input(id='d', value=100.0, type='number')
                             ]
                         ),
@@ -181,7 +181,8 @@ app.layout = dbc.Container(
             [
                 html.H4(["Given the voltage and current at the sending end, and the line properties"]),                                                        
             ]
-        ),     
+        ),
+        html.Hr(),   
         dbc.Row(
             [
                 dbc.Col(
