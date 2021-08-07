@@ -8,15 +8,10 @@ The line properties may be defined in two ways. One consists in specifying the v
 ## Model
 The model employed is the usual matrix formulation,
 
-![](doc/images/VI.svg)
+![](doc/images/VI_gbg.svg)
 
-where $\underline{A}$:
-
-```math
-e^i + 1 = 0
-```
-
-![](doc/images/ABCD.svg)
+where:
+![](doc/images/ABCD_gbg.svg)
 
 and
 
