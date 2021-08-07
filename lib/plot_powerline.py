@@ -33,7 +33,8 @@ def plot_V_I(k, Zc, L, Vs, Is):
     I_phase = np.angle(w[:,1])
     V_phase = np.angle(w[:,0])
 
-    S = w[:,0] * np.conj(w[:,1])
+    # Complex power delivered by the line is three times the equivalent monophase circuit
+    S = 3 * w[:,0] * np.conj(w[:,1])
     P = np.real(S)
     Q = np.imag(S)
     A = np.abs(S)
