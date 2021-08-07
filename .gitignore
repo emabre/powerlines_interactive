@@ -5,3 +5,4 @@ lib/__pycache__/*
 .env
 doc/Benato2021.pdf
 todo.md
+doc/equation_to_render.tex
