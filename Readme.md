@@ -7,9 +7,13 @@ The line properties may be defined in two ways. One consists in specifying the v
 
 ## Model
 The model employed is the usual matrix formulation,
-![](images/VI.svg)
-where:
-![](images/ABCD.svg)
+
+![](doc/images/VI.svg)
+
+where $\underline{A}$:
+
+![](doc/images/ABCD.svg)
+
 and
 
 
