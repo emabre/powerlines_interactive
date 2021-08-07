@@ -12,6 +12,10 @@ The model employed is the usual matrix formulation,
 
 where $\underline{A}$:
 
+```math
+e^i + 1 = 0
+```
+
 ![](doc/images/ABCD.svg)
 
 and
