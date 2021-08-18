@@ -26,6 +26,14 @@ server = app.server
 VsText = html.Div(["V", html.Sub(["s"]), " (V)"])
 IsText = html.Div(["I", html.Sub(["s"]), " (A)"])
 
+# Settings for using more practical units
+milli = {'conversion fact':1e3, 'unit specifier': 'm'}
+nano = {'conversion fact':1e9, 'unit specifier': 'n'}
+res_units = milli
+ind_units = milli
+cond_units = nano
+cap_units = nano
+
 kZc_card = dbc.Card(
     [
         dbc.FormGroup(
@@ -94,7 +102,7 @@ rlgc_card = dbc.Card(
                     [
                         dbc.FormGroup(
                             [
-                                dbc.Label("r (Ohm/km)"),
+                                dbc.Label("r ({}Ω/km)".format(res_units['unit specifier'])),
                                 dbc.Input(id='res', value=12.5e-3, type='number')
                             ]
                         ),
@@ -104,7 +112,7 @@ rlgc_card = dbc.Card(
                     [
                         dbc.FormGroup(
                             [
-                                dbc.Label("l (H/km)"),
+                                dbc.Label("l ({}H/km)".format(ind_units['unit specifier'])),
                                 dbc.Input(id='ind', value=0.576e-3, type='number')
                             ]
                         ),
@@ -118,7 +126,7 @@ rlgc_card = dbc.Card(
                     [
                         dbc.FormGroup(
                             [
-                                dbc.Label("g (S/km)"),
+                                dbc.Label("g ({}S/km)".format(cond_units['unit specifier'])),
                                 dbc.Input(id='cond', value=51.459e-9, type='number')
                             ]
                         ),
@@ -128,7 +136,7 @@ rlgc_card = dbc.Card(
                     [
                         dbc.FormGroup(
                             [
-                                dbc.Label("c (F/km)"),
+                                dbc.Label("c ({}F/km)".format(cap_units['unit specifier'])),
                                 dbc.Input(id='cap', value=234e-9, type='number')
                             ]
                         ),
@@ -179,7 +187,7 @@ app.layout = dbc.Container(
         ),
         dbc.Row(
             [
-                html.H4(["Given the voltage and current at the sending end, and the line properties"]),                                                        
+                html.H4(["Given the phase voltage and current at the sending end, and the line properties"]),                                                        
             ]
         ),
         html.Hr(),   
@@ -233,10 +241,14 @@ def update_kZc_xy(res, ind, cond, cap, freq,
     ctx = dash.callback_context
     trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
-    xyf = ('res', 'ind', 'cond','cap', 'freq')
+    xyf = ('res', 'ind', 'cond', 'cap', 'freq')
 
     if trigger_id in xyf:
-        k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
+        k, Zc = tr.xy_to_kZc(res/res_units['conversion fact'],
+                             ind/ind_units['conversion fact'],
+                             cond/cond_units['conversion fact'],
+                             cap/cap_units['conversion fact'],
+                             freq)
         k_real_out, k_imag_out = k.real, k.imag
         Zc_real_out, Zc_imag_out = Zc.real, Zc.imag
         res_out, ind_out, cond_out, cap_out, freq_out = res, ind, cond, cap, freq
@@ -249,7 +261,11 @@ def update_kZc_xy(res, ind, cond, cap, freq,
         Zc_real_out, Zc_imag_out = Zc_real, Zc_imag
         freq_out = freq
     
-    return (res_out, ind_out, cond_out, cap_out, freq_out,
+    return (res_units['conversion fact']*res_out,
+            ind_units['conversion fact']*ind_out,
+            cond_units['conversion fact']*cond_out,
+            cap_units['conversion fact']*cap_out,
+            freq_out,
             k_real_out, k_imag_out, Zc_real_out, Zc_imag_out,)
 
 @app.callback(
