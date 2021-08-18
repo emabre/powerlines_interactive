@@ -46,8 +46,8 @@ def kZc_to_xy(k, Zc, freq):
     Provides the r, l, g, c of a powerline given the Zc and k parameters
     '''
     
-    x = np.sqrt(k*Zc)
-    y = np.sqrt(k/Zc)
+    x = k*Zc
+    y = k/Zc
 
     # np.sqrt(c) returns the only solution to x**2 = c that has positive real part.
     # But I add here a check just in case...
@@ -65,10 +65,18 @@ def kZc_to_xy(k, Zc, freq):
 
 if __name__ == '__main__':
 
+    freq = 50.0
+
+    # Test xy_to_kZc
     r = 21.0e-6
     l = 0.8591e-6
     g = 13e-12
     c = 13.13e-12
-    freq = 50.0
 
     k, Zc = xy_to_kZc(r, l, g, c, freq)
+
+    # Test kZc_to_xy
+    rlcg = kZc_to_xy(k, Zc, freq)
+
+    print("r={}, l={}, g={}, c={}".format(*rlcg))
+    print("k={}, Zc={}".format(k, Zc))

@@ -238,8 +238,7 @@ def update_kZc_xy(res, ind, cond, cap, freq,
     if trigger_id in xyf:
         k, Zc = tr.xy_to_kZc(res, ind, cond, cap, freq)
         k_real_out, k_imag_out = k.real, k.imag
-        Zc_real_out, Zc_imag_out,  = Zc.real, Zc.imag
-
+        Zc_real_out, Zc_imag_out = Zc.real, Zc.imag
         res_out, ind_out, cond_out, cap_out, freq_out = res, ind, cond, cap, freq
 
     else:
