@@ -25,6 +25,7 @@ server = app.server
 
 VsText = html.Div(["V", html.Sub(["s"]), " (V)"])
 IsText = html.Div(["I", html.Sub(["s"]), " (A)"])
+ZcText = html.Div(["Z", html.Sub(["c"]), " (Ω)"])
 
 # Settings for using more practical units
 milli = {'conversion fact':1e3, 'unit specifier': 'm'}
@@ -38,7 +39,7 @@ kZc_card = dbc.Card(
     [
         dbc.FormGroup(
             [
-                dbc.Label("Zc (Ohm)"),
+                dbc.Label(ZcText),
                 dbc.Row(
                     [
                         dbc.Col([dbc.Input(id="Re(Zc)", value=49.644, type='number')], width=5),
