@@ -174,7 +174,7 @@ app.layout = dbc.Container(
     [
         dbc.Row(
             [
-                html.H2("Electrical quantities along a power line"),
+                html.H2("Electrical quantities along a three-phase power line"),
             ]
         ),
         dbc.Row(
