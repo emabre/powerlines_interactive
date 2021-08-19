@@ -191,6 +191,15 @@ app.layout = dbc.Container(
                 html.H4(["Given the phase voltage and current at the sending end, and the line properties"]),                                                        
             ]
         ),
+        dbc.Row(
+            [
+                html.H6([dcc.Link("Source code and references",
+                         href="https://github.com/emabre/powerlines_interactive")],
+                         style = {"text-decoration": "underline",
+                                #   "font-family":'Arial'
+                                  }),
+            ]
+        ),
         html.Hr(),   
         dbc.Row(
             [
