@@ -1,5 +1,5 @@
-# AC Power lines dashboard
-This repository contains the source code of the dashboard at [powerline](https://powerlineinteractive.herokuapp.com/).
+# AC three-phase power line dashboard
+This repository contains the source code of the dashboard available [here](https://powerlines-interactive.herokuapp.com/).
 
 The dashboard plots the phase voltage, current and the delivered complex power depending on the line length.
 
