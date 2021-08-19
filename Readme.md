@@ -23,7 +23,7 @@ Lastly, _z_ and _y_ are defined as:
 ![](doc/images/zy_gbg.svg)
 
 ## Implementation
-This dashboard is implemented using the Python library _dash_ <mettere link>.
+This dashboard has been implemented using mainly the Python library [dash](https://plotly.com/dash/) and it has been deployed as a [heroku app](https://www.heroku.com/).
 See `requirements.txt` for a comprehensive list of the dependencies.
 
 ## References
