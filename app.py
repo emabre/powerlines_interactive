@@ -9,16 +9,8 @@ from lib import transmission as tr
 from lib import utils as ut
 
 #%% Settings
-# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
-# app = dash.Dash(__name__,
-#                 external_stylesheets=external_stylesheets
-#                 )
-
 app = dash.Dash(external_stylesheets=[dbc.themes.CERULEAN])
-
 app.title = "Power line"
-
 server = app.server
 
 #%% Layout
@@ -305,4 +297,4 @@ def update_figure(k_real, k_imag,
 
 #%% Testing
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
