@@ -6,7 +6,6 @@ import dash_bootstrap_components as dbc
 
 from lib import plot_powerline as ppl
 from lib import transmission as tr
-from lib import utils as ut
 
 #%% Settings
 app = dash.Dash(external_stylesheets=[dbc.themes.CERULEAN])
@@ -20,12 +19,14 @@ IsText = html.Div(["I", html.Sub(["s"]), " (A)"])
 ZcText = html.Div(["Z", html.Sub(["c"]), " (Ω)"])
 
 # Settings for using more practical units
-milli = {'conversion fact':1e3, 'unit specifier': 'm'}
-nano = {'conversion fact':1e9, 'unit specifier': 'n'}
+milli = {'conversion fact':1e-3, 'unit specifier': 'm'}
+nano = {'conversion fact':1e-9, 'unit specifier': 'n'}
+u = {'conversion fact':1.0, 'unit specifier': ''}
 res_units = milli
 ind_units = milli
 cond_units = nano
 cap_units = nano
+
 
 kZc_card = dbc.Card(
     [
@@ -246,15 +247,22 @@ def update_kZc_xy(res, ind, cond, cap, freq,
     xyf = ('res', 'ind', 'cond', 'cap', 'freq')
 
     if trigger_id in xyf:
-        k, Zc = tr.xy_to_kZc(res/res_units['conversion fact'],
-                             ind/ind_units['conversion fact'],
-                             cond/cond_units['conversion fact'],
-                             cap/cap_units['conversion fact'],
+        # Transform r,l,c,g to usual SI units
+        res_out = res * res_units['conversion fact']
+        ind_out = ind * ind_units['conversion fact']
+        cond_out = cond * cond_units['conversion fact']
+        cap_out = cap * cap_units['conversion fact']
+
+        freq_out = freq
+        
+        k, Zc = tr.xy_to_kZc(res_out,
+                             ind_out,
+                             cond_out,
+                             cap_out,
                              freq)
         k_real_out, k_imag_out = k.real, k.imag
         Zc_real_out, Zc_imag_out = Zc.real, Zc.imag
-        res_out, ind_out, cond_out, cap_out, freq_out = res, ind, cond, cap, freq
-
+        
     else:
         res_out, ind_out, cond_out, cap_out = tr.kZc_to_xy(k_real + 1j*k_imag, 
                                                            Zc_real + 1j*Zc_imag,
@@ -263,10 +271,11 @@ def update_kZc_xy(res, ind, cond, cap, freq,
         Zc_real_out, Zc_imag_out = Zc_real, Zc_imag
         freq_out = freq
     
-    return (res_units['conversion fact']*res_out,
-            ind_units['conversion fact']*ind_out,
-            cond_units['conversion fact']*cond_out,
-            cap_units['conversion fact']*cap_out,
+    # Return transforming back r,l,g,c to convenient units
+    return (res_out / res_units['conversion fact'],
+            ind_out / ind_units['conversion fact'],
+            cond_out / cond_units['conversion fact'],
+            cap_out / cap_units['conversion fact'],
             freq_out,
             k_real_out, k_imag_out, Zc_real_out, Zc_imag_out,)
 
@@ -295,6 +304,7 @@ def update_figure(k_real, k_imag,
     return fig
 
 
-#%% Testing
+#%%
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=False) 
+    # app.run_server(debug=True)  # Testing
