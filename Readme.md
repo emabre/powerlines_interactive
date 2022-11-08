@@ -1,7 +1,6 @@
 # AC three-phase power line dashboard
-This repository contains the source code of the dashboard available [here](https://powerlines-interactive.herokuapp.com/).
 
-The dashboard plots the phase voltage, current and the delivered complex power depending on the line length.
+This repository contains the source code of a web dashboard to plot the phase voltage, current and the delivered complex power depending on the line length.
 
 The line properties may be defined in two ways. One consists in specifying the values of the kilometric resistivity (_r_), inductance (_l_) and shunt kilometric capacity (_c_) and conductivity (_g_). The other one consists in directly specifying the typical _Zc_ and _k_ line parameters. The electrical frequency may be customized as well.
 
